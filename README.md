@@ -10,13 +10,11 @@ Live at **[querro.app](https://querro.app)** · Built solo · In active developm
 
 ## The problem
 
-Every investment banking, consulting, legal, and audit engagement begins the same way: a kickoff meeting between the deal team and the client. The information captured in that meeting determines the quality of everything downstream — the briefing memo, the financial model, the pitchbook, the diligence plan, the risk register.
+Every investment banking engagement begins the same way: a kickoff meeting between the deal team and the client. The information captured in that meeting determines the quality of everything downstream.
 
-In practice, that meeting is run from a generic checklist or from the senior banker's memory. Critical questions are missed. Industry-specific nuances are skipped. Jurisdictional regulatory context is filled in retroactively, often by a junior analyst Googling at 11pm. Special situations — distress, carve-outs, family-owned businesses, Shariah-compliant capital structures — get treated as edge cases when they should drive the entire question set.
+In practice, that meeting is run from a generic checklist or from the senior banker's memory. Critical questions are missed. Industry-specific nuances are skipped. Special situations — distress, carve-outs, family-owned businesses, Shariah-compliant capital structures — get treated as edge cases when they should drive the entire question set.
 
-The downstream cost is enormous: missed information becomes missed risk; missed risk becomes botched valuations, mispriced deals, and rework cycles that consume the analyst's first three years of career.
-
-The AI tools shipping in this space — Rogo, Hebbia, Maywood, Model ML — assume the structured client information already exists somewhere. They analyze it, format it, summarize it. None of them build the tool that captures it in the first place.
+The AI tools shipping into this space — Rogo, Hebbia, Maywood, Model ML — assume the structured client information already exists somewhere. They analyze it, format it, summarize it. None of them build the tool that captures it in the first place.
 
 Querro owns that first mile.
 
@@ -24,17 +22,19 @@ Querro owns that first mile.
 
 ## What's in this repository
 
-This is a public documentation repository. **No source code, prompts, schemas, or proprietary implementation details are published here.** It exists to give external readers — researchers, investors, prospective customers, fellowship reviewers — a clear view of what Querro is, how it is designed, and what it implies for the economics of professional services work.
+This is a public documentation repository. **No source code, prompts, schemas, or proprietary implementation details are published here.** It exists to give external readers — investors, prospective customers, researchers, and engineering candidates — a clear view of what Querro is, how it is designed, and what it implies for the economics of professional services work.
 
-| Document | What it covers |
-|----------|----------------|
-| [Overview](docs/01-overview.md) | What Querro is, who it's for, why it exists |
-| [Architecture](docs/02-architecture.md) | The five-dimensional context model and modular content library |
-| [AI System Design](docs/03-ai-system-design.md) | Where AI is used, where it isn't, and why that line is drawn carefully |
-| [Evaluation](docs/04-evaluation.md) | How agent reliability and output quality are measured |
-| [Current State](docs/05-current-state.md) | What is live in production today |
-| [Roadmap](docs/06-roadmap.md) | What is being built next, and on what timeline |
-| [Economic Impact](docs/07-economic-impact.md) | What Querro implies for the analyst-class labor market |
+Read in order:
+
+| #   | Document                                        | What it covers                                                          |
+| --- | ----------------------------------------------- | ----------------------------------------------------------------------- |
+| 1   | [Overview](docs/01-overview.md)                 | What Querro is, the problem it solves, the whitespace, why now          |
+| 2   | [Who It's For](docs/02-who-its-for.md)          | Target customer segment, why this segment, expansion path               |
+| 3   | [Platform Design](docs/03-platform-design.md)   | The contextual architecture and content library that power the platform |
+| 4   | [AI Philosophy](docs/04-ai-philosophy.md)       | Where AI is used, where it isn't, and how outputs are validated         |
+| 5   | [Production State](docs/05-production-state.md) | What is live in production today, with screenshots                      |
+| 6   | [Roadmap](docs/06-roadmap.md)                   | What is being built next, and on what timeline                          |
+| 7   | [Economic Impact](docs/07-economic-impact.md)   | What Querro implies for the analyst-class labor market                  |
 
 ---
 
@@ -44,20 +44,27 @@ This is a public documentation repository. **No source code, prompts, schemas, o
 
 - Email/password authentication and per-firm data isolation
 - Engagement dashboard with multi-project, multi-jurisdiction support
-- A 191-question structured intake covering general, operational, financial, legal, and HR dimensions of an investment banking deal
+- A 191-question structured intake covering general, operational, financial, legal, and HR dimensions
 - Adaptive question suggestions powered by Claude
+- Three-state source attribution (AI Research, Primary Research, AI Research Edited) on every answer
 - Auto-saved responses, sensitivity flagging, and concentration-risk surfacing
-- One-click generation of a professional briefing memo as a PDF, with AI-augmented executive summary and risk register
+- One-click generation of a professional briefing memo as a PDF (deterministic compiler + two bounded AI sections)
+- AI-generated risk register with auto-flags from flagged questionnaire fields
+- Document upload with page-by-page text extraction and tag-based organization
+- Sector research with AI-generated content and inline source citations
 
-**In active development (April–June 2026):**
+**In active development (ends May 5, 2026):**
 
-- A five-dimensional composition engine that replaces the static questionnaire with a dynamically tailored question set per engagement
-- Document upload, OCR, page-by-page tagging, and tag-driven pre-fill of the questionnaire
-- Country and sector research generation with citation grounding
-- Information gap detection and a structured risk register
-- Spreadsheet-format financial models tailored to the engagement's industry and mandate
+- Dynamic question tailoring — replacing the static questionnaire with a contextually tailored question set per engagement, derived from the mandate type, target's business model and industry, applicable jurisdictions, and any special situations
 
-See the [roadmap](docs/06-roadmap.md) for detail.
+**Coming in Phase 2 (May 6 to June 8, 2026):**
+
+- Document pre-fill with AI tagging — extracting structured answers from uploaded documents, mapped to questionnaire fields with page citations
+- Country research generation with citation grounding
+- Information gap detection — structured checklist of unanswered or weakly-answered questions
+- Financial model templates — spreadsheet-format, tailored to the engagement's mandate and industry
+
+See the [Roadmap](docs/06-roadmap.md) for detail.
 
 ---
 
@@ -65,17 +72,17 @@ See the [roadmap](docs/06-roadmap.md) for detail.
 
 Three principles run through every decision in this product.
 
-**1. Structure beats freeform.** Generative AI is most useful when constrained by a strong information schema. Querro's central bet is that the right primitive for professional work is not a chat window or a document but a structured engagement record that any output can be compiled from.
+**Structure beats freeform.** Generative AI is most useful when constrained by a strong information schema. Querro's central bet is that the right primitive for professional work is not a chat window or a document but a structured engagement record that any output can be compiled from.
 
-**2. Determinism where it matters; AI where it adds value.** The briefing memo is assembled by a deterministic compiler. AI is invoked only for the two sections — the executive summary and the consolidated risks — where natural-language synthesis genuinely helps. Every other section is rendered from structured fields. This is a deliberate choice: the cost of an incorrect AI-generated number in a deal document is higher than the cost of writing a compiler.
+**Determinism where it matters; AI where it adds value.** The briefing memo is assembled by a deterministic compiler. AI is invoked only for the sections where natural-language synthesis genuinely helps. Every other section is rendered from structured fields. The cost of an incorrect AI-generated number in a deal document is higher than the cost of writing a compiler.
 
-**3. The library is the moat.** The platform's intelligence lives in a versioned content library — questions, regulatory context, sector terminology, and special-situation overlays — that grows with every completed engagement. Software engineering builds the engine; domain expertise compounds in the library.
+**The content library is the moat.** The platform's intelligence lives in a versioned content library — questions, regulatory context, industry terminology, and special-situation logic — that grows with every completed engagement. Software engineering builds the engine; domain expertise compounds in the library.
 
 ---
 
 ## About the founder
 
-Querro is built solo by **Basar Naeem Qureshi**, a Master of Financial Engineering candidate at UCLA Anderson and former investment banking associate at Bridge Factor, where he led the first successful bank privatization in Pakistan in two decades. He holds the CFA charter (private markets pathway) and is targeting US middle-market boutique investment banks as the platform's first customer segment.
+Querro is built by **Basar Naeem Qureshi**, a Master of Financial Engineering candidate at UCLA Anderson and former investment banking associate. He has passed all three levels of the CFA Program (private markets pathway) and is targeting US middle-market boutique investment banks as the platform's first customer segment.
 
 Contact: **basar@querro.app**
 

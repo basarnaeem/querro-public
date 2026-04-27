@@ -4,7 +4,7 @@
 
 This document examines the labor-market and productivity implications of platforms like Querro for the analyst-class workforce in professional services. It is written for readers — researchers, fellowship reviewers, policy analysts — who care less about whether a particular product succeeds commercially and more about what its trajectory implies for the economics of professional work.
 
-The framing is honest about uncertainty. The empirical questions raised here cannot be answered from inside one company building one product. They can only be answered from outside, with longitudinal data across many firms over multiple years. What this document offers is a structured account of the mechanism by which a platform of this design changes the unit economics of a deal team, the tasks within that deal team that are substituted or complemented, and the distributional effects that follow.
+The framing is honest about uncertainty. The empirical questions raised here cannot be answered from inside one company building one product. They can only be answered from outside, with longitudinal data across many firms over multiple years. What this document offers is a structured account of the mechanism by which a platform of this design changes the unit economics of a deal team, which tasks within that deal team are substituted or complemented, and the distributional effects that follow.
 
 The author is the founder of the company being described. The document is written to invite scrutiny rather than to advocate. Where the founder's interest and the empirical question diverge, the document attempts to flag the divergence rather than paper over it.
 
@@ -52,7 +52,7 @@ There are three possibilities, each with different distributional consequences.
 
 **Possibility C — The time is recovered as labor cost reduction.** A boutique that was hiring four analysts per year hires three, or hires the same four but extends their time-to-promotion to compensate for slower revenue growth. This is the outcome the labor-displacement literature focuses on; it is also the outcome that platform vendors typically downplay in their sales materials.
 
-The honest answer is that all three happen, in different mixes at different firms, depending on the firm's growth posture, capital allocation, and culture. The empirical question — what the actual mix is, longitudinally, across firms adopting platforms of this design — cannot be answered from a single product's deployment data. It requires the kind of cross-firm panel analysis that economists in the Anthropic Fellows workstream are positioned to conduct.
+The honest answer is that all three happen, in different mixes at different firms, depending on the firm's growth posture, capital allocation, and culture. The empirical question — what the actual mix is, longitudinally, across firms adopting platforms of this design — cannot be answered from a single product's deployment data. It requires the kind of cross-firm panel analysis that economists working in this space are positioned to conduct.
 
 ## What is substituted, what is complemented
 
