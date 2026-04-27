@@ -92,3 +92,59 @@ Querro is, today, a working version 1 of a deal advisory platform with a static 
 It is not yet a finished product. The composition engine that gives the architecture its leverage is being built right now. The downstream artifacts — research, gap analysis, risk register, financial models — are the next phase of the build. Pilot customer rollout is targeted for the third quarter of 2026, after the v2.0 build is feature-complete.
 
 A reviewer evaluating the platform should treat the live site as a credible technical demonstration, not as a finished commercial product. The architectural and economic claims in the rest of this repository are claims about where the platform is going. The live site is evidence of the building capacity, not of the destination.
+
+---
+
+## Visual reference
+
+Screenshots of the production environment, in order of the workflow they represent.
+
+### Landing page
+
+![Querro landing page hero](../screenshots/2026-04-26-landing-hero.png)
+
+The public-facing entry point at [querro.app](https://querro.app), with the seven-frame interactive walkthrough below the fold.
+
+![Interactive walkthrough frame](../screenshots/2026-04-26-landing-walkthrough.png)
+
+### Engagement dashboard
+
+![Dashboard with engagement cards](../screenshots/2026-04-26-dashboard.png)
+
+The post-login dashboard. Each card represents one active engagement and routes to that engagement's structured workspace.
+
+### Structured questionnaire — General section
+
+![General section of an engagement](../screenshots/2026-04-26-engagement-general.png)
+
+The first section of every engagement: company background, mandate basics, deal scope. Questions G1 through G20 are universal across all investment banking engagements in the current static library.
+
+### Structured questionnaire — Operational section
+
+![Operational section with sensitivity flagging](../screenshots/2026-04-26-engagement-operational.png)
+
+The Operational section uses a kanban-card layout to keep long question sets readable. Sensitive questions carry a red border; concentration-risk questions auto-flag at threshold values.
+
+### Adaptive question suggestions
+
+![Adaptive question suggestion card](../screenshots/2026-04-26-adaptive-suggestion.png)
+
+Mid-questionnaire, the platform surfaces follow-up questions tailored to answers already given. Each suggestion is accepted, edited, or dismissed by the user.
+
+### Briefing memo generation
+
+![Generate briefing modal](../screenshots/2026-04-26-generate-modal.png)
+
+The deterministic compiler runs server-side, augmented by two bounded language model calls (executive summary, consolidated risks). End-to-end generation completes in under fifteen seconds for a typical engagement.
+
+## Beyond version 1: features shipping ahead of this snapshot
+
+This document was authored against the production state of April 25, 2026. The platform is in active development; some features described elsewhere in this repository as "in active development" have shipped during the days since this document was written. The screenshot below is one example.
+
+### Sector Research
+
+![Sector Research view](../screenshots/2026-04-26-sector-research.png)
+
+A 25-question structured sector analysis organized across Global, Regional, and Country tabs, populated by Claude with web search and rendered with inline source citations. Each AI-generated answer carries an "AI Research — Edited" badge indicating user-reviewed status; sources are linked underneath each answer.
+
+The screenshot is included here, slightly out of sync with the rest of this document, to give readers a direct view of where the platform is heading week by week. The [Roadmap](06-roadmap.md) describes the broader feature set still in flight.
